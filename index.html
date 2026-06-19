@@ -6,6 +6,110 @@
 <title>Altar Digital - MIGUE F. | Devoto de la Santa Muerte</title>
 <meta name="description" content="Altar digital de MIGUE F., fiel creyente de la Bendita Santa Muerte. Oraciones, fe y abundancia.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- SEO Avanzado -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://customer625a-prog.github.io/MIGUE_F/">
+<meta name="keywords" content="Santa Muerte, altar digital, oraciones Santa Muerte, devocion Santa Muerte, altar virtual, MIGUE F">
+<meta name="author" content="MIGUE F.">
+
+<!-- GEO Tags (posicionamiento local Mexico) -->
+<meta name="geo.region" content="MX">
+<meta name="geo.placename" content="México">
+<meta name="language" content="es-MX">
+<meta name="content-language" content="es-MX">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://customer625a-prog.github.io/MIGUE_F/">
+<meta property="og:title" content="Altar Digital - MIGUE F. | Devoto de la Santa Muerte">
+<meta property="og:description" content="Altar digital de MIGUE F., fiel creyente de la Bendita Santa Muerte. Enciende una vela virtual, lee sus oraciones y conoce la devocion.">
+<meta property="og:image" content="images/hero.jpg">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="Altar Digital MIGUE F.">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Altar Digital - MIGUE F. | Devoto de la Santa Muerte">
+<meta name="twitter:description" content="Altar digital de MIGUE F. Velas virtuales, oraciones y fe a la Bendita Santa Muerte.">
+<meta name="twitter:image" content="images/hero.jpg">
+
+<!-- AEO: JSON-LD Datos Estructurados para buscadores e IA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Altar Digital MIGUE F.",
+      "url": "https://customer625a-prog.github.io/MIGUE_F/",
+      "description": "Altar digital de MIGUE F., fiel creyente de la Bendita Santa Muerte.",
+      "inLanguage": "es-MX"
+    },
+    {
+      "@type": "Person",
+      "name": "MIGUE F.",
+      "description": "Devoto de la Santa Muerte, emprendedor y creador de altares digitales personalizados.",
+      "url": "https://customer625a-prog.github.io/MIGUE_F/",
+      "sameAs": [
+        "https://www.facebook.com/share/1DryUNC5iX/",
+        "https://www.instagram.com/figmigue",
+        "https://www.threads.com/@figmigue",
+        "https://www.tiktok.com/@gold.like.me"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "name": "Altar Digital Personalizado",
+        "description": "Página web personalizada de altar digital para devotos de la Santa Muerte. Diseño negro y dorado, galeria de imagenes, oraciones y redes conectadas.",
+        "price": "499",
+        "priceCurrency": "MXN",
+        "availability": "https://schema.org/LimitedAvailability"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es un Altar Digital?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Un Altar Digital es una página web propia y permanente dedicada a tu devoción a la Santa Muerte. A diferencia de las redes sociales, nadie puede censurar ni borrar tus oraciones."}
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta un Altar Digital?",
+          "acceptedAnswer": {"@type": "Answer", "text": "El costo es de $499 MXN en un solo pago, sin mensualidades. Incluye diseño personalizado, galeria, redes sociales conectadas y alojamiento gratis por 1 año."}
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tiempo tarda en estar listo mi Altar Digital?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Una vez recibida tu información y fotos, tu altar digital estará en vivo en internet en un máximo de 24 a 48 horas hábiles."}
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Meta Pixel Code -->
+<!-- INSTRUCCION: Reemplaza TU_PIXEL_ID_AQUI con tu ID de Pixel de Meta Business Suite -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'TU_PIXEL_ID_AQUI');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=TU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/></noscript>
+
+<!-- Firebase SDK (contador global de velas) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <style>
 :root {
   --gold: #d4af37;
@@ -941,24 +1045,67 @@ document.querySelectorAll('.color-tab').forEach(tab => {
   });
 });
 
-// --- 4. Veladoras Virtuales con LocalStorage ---
-const initialCounts = {
-  dorada: 1248,
-  roja: 984,
-  negra: 1532
+// --- 4. Veladoras Virtuales - Contador Global con Firebase ---
+// ============================================================
+// PARA ACTIVAR EL CONTADOR GLOBAL:
+// 1. Ve a https://console.firebase.google.com
+// 2. Crea un proyecto nuevo (gratis)
+// 3. Ve a "Realtime Database" > "Crear base de datos" > "Modo de prueba"
+// 4. Ve a Configuración del proyecto > Tus apps > agrega app web
+// 5. Copia el firebaseConfig que te da y pégalo abajo
+// ============================================================
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROYECTO.firebaseapp.com",
+  databaseURL: "https://TU_PROYECTO-default-rtdb.firebaseio.com",
+  projectId: "TU_PROYECTO",
+  storageBucket: "TU_PROYECTO.appspot.com",
+  messagingSenderId: "TU_SENDER_ID",
+  appId: "TU_APP_ID"
 };
 
+const SEED_VALUES = { dorada: 16248, roja: 12984, negra: 19532 };
+let firebaseReady = false;
+let dbRefs = {};
+
+function initFirebase() {
+  try {
+    if (firebaseConfig.apiKey === 'TU_API_KEY') {
+      console.info('Firebase no configurado. Usando contadores locales.');
+      return; // cae al modo local
+    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    ['dorada', 'roja', 'negra'].forEach(color => {
+      dbRefs[color] = db.ref(`velas/${color}`);
+      // Si el contador no existe en Firebase lo inicializa con el valor semilla
+      dbRefs[color].once('value', snap => {
+        if (!snap.exists()) dbRefs[color].set(SEED_VALUES[color]);
+      });
+      // Escucha cambios en tiempo real y actualiza el DOM
+      dbRefs[color].on('value', snap => {
+        const val = snap.val() || SEED_VALUES[color];
+        const el = document.getElementById(`count-${color}`);
+        if (el) el.innerText = val.toLocaleString('es-MX');
+      });
+    });
+    firebaseReady = true;
+  } catch(e) {
+    console.warn('Error inicializando Firebase, modo local activado.', e);
+  }
+}
+
+const initialCounts = SEED_VALUES;
+
 function initCandles() {
+  initFirebase(); // intenta conectar Firebase
   ['dorada', 'roja', 'negra'].forEach(color => {
     const isLit = localStorage.getItem(`candle_${color}_lit`) === 'true';
-    const hasInteracted = localStorage.getItem(`candle_${color}_interacted`) === 'true';
-    
-    let count = initialCounts[color];
-    if (hasInteracted && isLit) {
-      count += 1;
+    // Si Firebase no está listo, muestra el valor semilla
+    if (!firebaseReady) {
+      document.getElementById(`count-${color}`).innerText =
+        SEED_VALUES[color].toLocaleString('es-MX');
     }
-    document.getElementById(`count-${color}`).innerText = count;
-
     if (isLit) {
       document.querySelector(`#candle-${color} .candle`).classList.add('lit');
       document.getElementById(`candle-${color}`).classList.add('lit-bg');
@@ -973,25 +1120,34 @@ function toggleCandle(color) {
   const candle = wrapper.querySelector('.candle');
   const btn = wrapper.querySelector('.btn-candle');
   const countSpan = document.getElementById(`count-${color}`);
-  
+
   const isLit = candle.classList.contains('lit');
-  let currentCount = parseInt(countSpan.innerText);
 
   if (!isLit) {
     candle.classList.add('lit');
     wrapper.classList.add('lit-bg');
     btn.innerText = `Apagar ${capitalize(color)}`;
-    countSpan.innerText = currentCount + 1;
     localStorage.setItem(`candle_${color}_lit`, 'true');
-    localStorage.setItem(`candle_${color}_interacted`, 'true');
-    
     playBellChime();
+
+    if (firebaseReady && dbRefs[color]) {
+      // Suma 13 al contador global (transacción atómica, segura con múltiples usuarios)
+      dbRefs[color].transaction(current => {
+        return (current || SEED_VALUES[color]) + 13;
+      });
+      // Evento Meta Pixel: vela encendida
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'VelaEncendida', {color: color});
+    } else {
+      // Modo local: suma 13 visualmente
+      const cur = parseInt(countSpan.innerText.replace(/,/g, '')) || SEED_VALUES[color];
+      countSpan.innerText = (cur + 13).toLocaleString('es-MX');
+    }
   } else {
     candle.classList.remove('lit');
     wrapper.classList.remove('lit-bg');
     btn.innerText = `Encender ${capitalize(color)}`;
-    countSpan.innerText = currentCount - 1;
     localStorage.setItem(`candle_${color}_lit`, 'false');
+    // Al apagar no se resta (la ofrenda ya fue hecha)
   }
 }
 
