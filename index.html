@@ -1084,7 +1084,8 @@ async function loadCountsFromSupabase() {
 
   const response = await fetch(url.toString(), { headers: supabaseHeaders() });
   if (!response.ok) {
-    throw new Error(`Supabase select failed with HTTP ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`Supabase select failed with HTTP ${response.status}${errorText ? `: ${errorText}` : ''}`);
   }
 
   const rows = await response.json();
@@ -1112,7 +1113,8 @@ async function incrementCandleCount(color) {
   });
 
   if (!response.ok) {
-    throw new Error(`Supabase RPC failed with HTTP ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`Supabase RPC failed with HTTP ${response.status}${errorText ? `: ${errorText}` : ''}`);
   }
 
   const data = await response.json();

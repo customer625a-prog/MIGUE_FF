@@ -18,7 +18,7 @@ create or replace function public.increment_candle_counter(
   p_color text,
   p_increment integer default 13
 )
-returns table (color text, total bigint)
+returns table (total bigint)
 language plpgsql
 security definer
 set search_path = public
@@ -35,7 +35,7 @@ begin
   do update set
     total = cc.total + excluded.total,
     updated_at = now()
-  returning color, total;
+  returning cc.total;
 end;
 $$;
 
