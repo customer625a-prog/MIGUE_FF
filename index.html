@@ -90,26 +90,6 @@
 }
 </script>
 
-<!-- Meta Pixel Code -->
-<!-- INSTRUCCION: Reemplaza TU_PIXEL_ID_AQUI con tu ID de Pixel de Meta Business Suite -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', 'TU_PIXEL_ID_AQUI');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=TU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/></noscript>
-
-<!-- Firebase SDK (contador global de velas) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <style>
 :root {
   --gold: #d4af37;
@@ -1045,67 +1025,137 @@ document.querySelectorAll('.color-tab').forEach(tab => {
   });
 });
 
-// --- 4. Veladoras Virtuales - Contador Global con Firebase ---
-// ============================================================
-// PARA ACTIVAR EL CONTADOR GLOBAL:
-// 1. Ve a https://console.firebase.google.com
-// 2. Crea un proyecto nuevo (gratis)
-// 3. Ve a "Realtime Database" > "Crear base de datos" > "Modo de prueba"
-// 4. Ve a Configuración del proyecto > Tus apps > agrega app web
-// 5. Copia el firebaseConfig que te da y pégalo abajo
-// ============================================================
-const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_PROYECTO.firebaseapp.com",
-  databaseURL: "https://TU_PROYECTO-default-rtdb.firebaseio.com",
-  projectId: "TU_PROYECTO",
-  storageBucket: "TU_PROYECTO.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
+// --- 4. Veladoras Virtuales - Contador Global con Supabase ---
+const SUPABASE_CONFIG = {
+  // Frontend only uses the public/publishable key.
+  url: "https://pazugfrzakctvxcnjwxy.supabase.co/rest/v1/",
+  anonKey: "sb_publishable_RY_uBOjCpzx1dVSF8em7Dw_GNug7J7z",
+  table: "candle_counters",
+  rpc: "increment_candle_counter"
 };
 
+const CANDLE_COLORS = ['dorada', 'roja', 'negra'];
 const SEED_VALUES = { dorada: 16248, roja: 12984, negra: 19532 };
-let firebaseReady = false;
-let dbRefs = {};
+let candleCounts = { ...SEED_VALUES };
+let supabaseSyncTimer = null;
 
-function initFirebase() {
-  try {
-    if (firebaseConfig.apiKey === 'TU_API_KEY') {
-      console.info('Firebase no configurado. Usando contadores locales.');
-      return; // cae al modo local
-    }
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    ['dorada', 'roja', 'negra'].forEach(color => {
-      dbRefs[color] = db.ref(`velas/${color}`);
-      // Si el contador no existe en Firebase lo inicializa con el valor semilla
-      dbRefs[color].once('value', snap => {
-        if (!snap.exists()) dbRefs[color].set(SEED_VALUES[color]);
-      });
-      // Escucha cambios en tiempo real y actualiza el DOM
-      dbRefs[color].on('value', snap => {
-        const val = snap.val() || SEED_VALUES[color];
-        const el = document.getElementById(`count-${color}`);
-        if (el) el.innerText = val.toLocaleString('es-MX');
-      });
-    });
-    firebaseReady = true;
-  } catch(e) {
-    console.warn('Error inicializando Firebase, modo local activado.', e);
-  }
+function hasSupabaseConfig() {
+  return (
+    SUPABASE_CONFIG.url &&
+    SUPABASE_CONFIG.anonKey &&
+    !SUPABASE_CONFIG.url.includes('TU_SUPABASE_URL') &&
+    !SUPABASE_CONFIG.anonKey.includes('TU_SUPABASE_ANON_KEY')
+  );
 }
 
-const initialCounts = SEED_VALUES;
+function normalizeSupabaseUrl(value) {
+  return String(value || '')
+    .trim()
+    .replace(/\/rest\/v1\/?$/, '')
+    .replace(/\/$/, '');
+}
 
-function initCandles() {
-  initFirebase(); // intenta conectar Firebase
-  ['dorada', 'roja', 'negra'].forEach(color => {
-    const isLit = localStorage.getItem(`candle_${color}_lit`) === 'true';
-    // Si Firebase no está listo, muestra el valor semilla
-    if (!firebaseReady) {
-      document.getElementById(`count-${color}`).innerText =
-        SEED_VALUES[color].toLocaleString('es-MX');
+function supabaseBaseUrl() {
+  return normalizeSupabaseUrl(SUPABASE_CONFIG.url);
+}
+
+function supabaseHeaders() {
+  return {
+    apikey: SUPABASE_CONFIG.anonKey,
+    Authorization: `Bearer ${SUPABASE_CONFIG.anonKey}`,
+    'Content-Type': 'application/json',
+    Prefer: 'return=representation'
+  };
+}
+
+function renderCount(color, value) {
+  const el = document.getElementById(`count-${color}`);
+  if (el) el.innerText = Number(value || 0).toLocaleString('es-MX');
+}
+
+function renderAllCounts(counts) {
+  CANDLE_COLORS.forEach(color => renderCount(color, counts[color] ?? SEED_VALUES[color]));
+}
+
+async function loadCountsFromSupabase() {
+  const url = new URL(`${supabaseBaseUrl()}/rest/v1/${SUPABASE_CONFIG.table}`);
+  url.searchParams.set('select', 'color,total');
+  url.searchParams.set('color', `in.(${CANDLE_COLORS.join(',')})`);
+
+  const response = await fetch(url.toString(), { headers: supabaseHeaders() });
+  if (!response.ok) {
+    throw new Error(`Supabase select failed with HTTP ${response.status}`);
+  }
+
+  const rows = await response.json();
+  const nextCounts = { ...SEED_VALUES };
+
+  rows.forEach(row => {
+    if (Object.prototype.hasOwnProperty.call(nextCounts, row.color)) {
+      nextCounts[row.color] = Number(row.total) || SEED_VALUES[row.color];
     }
+  });
+
+  candleCounts = nextCounts;
+  renderAllCounts(nextCounts);
+  return nextCounts;
+}
+
+async function incrementCandleCount(color) {
+  const response = await fetch(`${supabaseBaseUrl()}/rest/v1/rpc/${SUPABASE_CONFIG.rpc}`, {
+    method: 'POST',
+    headers: supabaseHeaders(),
+    body: JSON.stringify({
+      p_color: color,
+      p_increment: 13
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase RPC failed with HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  const nextValue = Array.isArray(data)
+    ? Number(data?.[0]?.total)
+    : Number(data?.total ?? data);
+
+  if (!Number.isFinite(nextValue)) {
+    throw new Error('Supabase returned an invalid counter value');
+  }
+
+  candleCounts[color] = nextValue;
+  renderCount(color, nextValue);
+  return nextValue;
+}
+
+function startSupabaseSync() {
+  if (!hasSupabaseConfig() || supabaseSyncTimer) return;
+
+  supabaseSyncTimer = setInterval(() => {
+    loadCountsFromSupabase().catch(error => {
+      console.warn('No se pudo sincronizar el contador de Supabase.', error);
+    });
+  }, 30000);
+}
+
+async function initCandles() {
+  if (hasSupabaseConfig()) {
+    try {
+      await loadCountsFromSupabase();
+    } catch (error) {
+      console.warn('Supabase no respondió al cargar los contadores. Se muestran los valores semilla por ahora.', error);
+      renderAllCounts(SEED_VALUES);
+    }
+  } else {
+    console.info('Supabase no configurado. Usando contadores locales de demostración.');
+    renderAllCounts(SEED_VALUES);
+  }
+
+  startSupabaseSync();
+
+  CANDLE_COLORS.forEach(color => {
+    const isLit = localStorage.getItem(`candle_${color}_lit`) === 'true';
     if (isLit) {
       document.querySelector(`#candle-${color} .candle`).classList.add('lit');
       document.getElementById(`candle-${color}`).classList.add('lit-bg');
@@ -1115,40 +1165,45 @@ function initCandles() {
   });
 }
 
-function toggleCandle(color) {
+async function toggleCandle(color) {
   const wrapper = document.getElementById(`candle-${color}`);
+  if (!wrapper || wrapper.dataset.busy === 'true') return;
+
   const candle = wrapper.querySelector('.candle');
   const btn = wrapper.querySelector('.btn-candle');
-  const countSpan = document.getElementById(`count-${color}`);
-
   const isLit = candle.classList.contains('lit');
 
   if (!isLit) {
-    candle.classList.add('lit');
-    wrapper.classList.add('lit-bg');
-    btn.innerText = `Apagar ${capitalize(color)}`;
-    localStorage.setItem(`candle_${color}_lit`, 'true');
-    playBellChime();
+    wrapper.dataset.busy = 'true';
 
-    if (firebaseReady && dbRefs[color]) {
-      // Suma 13 al contador global (transacción atómica, segura con múltiples usuarios)
-      dbRefs[color].transaction(current => {
-        return (current || SEED_VALUES[color]) + 13;
-      });
-      // Evento Meta Pixel: vela encendida
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'VelaEncendida', {color: color});
-    } else {
-      // Modo local: suma 13 visualmente
-      const cur = parseInt(countSpan.innerText.replace(/,/g, '')) || SEED_VALUES[color];
-      countSpan.innerText = (cur + 13).toLocaleString('es-MX');
+    try {
+      if (hasSupabaseConfig()) {
+        const nextValue = await incrementCandleCount(color);
+        candleCounts[color] = nextValue;
+      } else {
+        const nextValue = (candleCounts[color] || SEED_VALUES[color]) + 13;
+        candleCounts[color] = nextValue;
+        renderCount(color, nextValue);
+      }
+
+      candle.classList.add('lit');
+      wrapper.classList.add('lit-bg');
+      btn.innerText = `Apagar ${capitalize(color)}`;
+      localStorage.setItem(`candle_${color}_lit`, 'true');
+      playBellChime();
+    } catch (error) {
+      console.warn(`No se pudo guardar la ofrenda de ${color}.`, error);
+    } finally {
+      wrapper.dataset.busy = 'false';
     }
-  } else {
-    candle.classList.remove('lit');
-    wrapper.classList.remove('lit-bg');
-    btn.innerText = `Encender ${capitalize(color)}`;
-    localStorage.setItem(`candle_${color}_lit`, 'false');
-    // Al apagar no se resta (la ofrenda ya fue hecha)
+
+    return;
   }
+
+  candle.classList.remove('lit');
+  wrapper.classList.remove('lit-bg');
+  btn.innerText = `Encender ${capitalize(color)}`;
+  localStorage.setItem(`candle_${color}_lit`, 'false');
 }
 
 function capitalize(s) {
