@@ -14,6 +14,8 @@ values
   ('negra', 19532)
 on conflict (color) do nothing;
 
+drop function if exists public.increment_candle_counter(text, integer);
+
 create or replace function public.increment_candle_counter(
   p_color text,
   p_increment integer default 13
