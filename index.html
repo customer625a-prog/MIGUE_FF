@@ -19,20 +19,9 @@
 <meta name="language" content="es-MX">
 <meta name="content-language" content="es-MX">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://migue-f.netlify.app/">
-<meta property="og:title" content="Altar Digital - MIGUE F. | Devoto de la Santa Muerte">
-<meta property="og:description" content="Altar digital de MIGUE F., fiel creyente de la Bendita Santa Muerte. Enciende una vela virtual, lee sus oraciones y conoce la devocion.">
-<meta property="og:image" content="images/hero.jpg">
-<meta property="og:locale" content="es_MX">
-<meta property="og:site_name" content="Altar Digital MIGUE F.">
+<meta property="og:image" content="https://migue-f.pages.dev/images/hero.jpg">
 
-<!-- Twitter / X Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Altar Digital - MIGUE F. | Devoto de la Santa Muerte">
-<meta name="twitter:description" content="Altar digital de MIGUE F. Velas virtuales, oraciones y fe a la Bendita Santa Muerte.">
-<meta name="twitter:image" content="images/hero.jpg">
+<meta name="twitter:image" content="https://migue-f.pages.dev/images/hero.jpg">
 
 <!-- AEO source copy: seo/aeo.json -->
 <script type="application/ld+json">
@@ -865,9 +854,27 @@ footer {
       </div>
     </div>
   </section>
-</div>
+  </div>
 
-<button id="audio-toggle" class="audio-btn" aria-label="Música ambiental">
+  <section class="section scroll-reveal" id="seccion-audios">
+  <h2 style="text-align:center;margin-bottom:0.5rem">Oraciones en Audio</h2>
+  <p style="text-align:center;max-width:600px;margin:0 auto 2rem;opacity:0.8;font-size:0.95rem">Escucha o descarga las oraciones. Fe que puedes llevar contigo.</p>
+  <div class="cards" id="audio-cards">
+    <!-- Las tarjetas se agregan aquí cuando tengas los MP3 en R2 -->
+    <!-- Ejemplo de cómo quedará cada tarjeta:
+    <div class="card">
+      <h3>Oración de Abundancia</h3>
+      <p>Para abrir caminos y multiplicar lo que tocas.</p>
+      <audio controls preload="none" style="width:100%;margin:1rem 0;filter:invert(0)">
+        <source src="https://pub-XXXXX.r2.dev/oracion-abundancia.mp3" type="audio/mpeg">
+      </audio>
+      <a href="https://pub-XXXXX.r2.dev/oracion-abundancia.mp3" download class="btn-gold" style="padding:0.6rem 1.5rem;font-size:0.9rem">⬇ Descargar MP3</a>
+    </div>
+    -->
+  </div>
+  </section>
+
+  <button id="audio-toggle" class="audio-btn" aria-label="Música ambiental">
   <svg viewBox="0 0 24 24" width="24" height="24">
     <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6zM10 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
   </svg>
@@ -993,7 +1000,7 @@ function startDrone() {
   const choirFreqs = [130.81, 164.81, 196.00, 261.63]; // Do3 Mi3 Sol3 Do4
   const choirOscs = [];
   const masterGain = audioCtx.createGain();
-  masterGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+  masterGain.gain.setValueAtTime(0.38, audioCtx.currentTime);
   masterGain.connect(droneGain);
 
   choirFreqs.forEach((f, i) => {
@@ -1324,6 +1331,10 @@ async function initCandles() {
       btn.innerText = 'Apagar ' + capitalize(color);
     }
   });
+
+  document.body.addEventListener('touchstart', () => {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }, { once: true });
 }
 
 async function toggleCandle(color) {
