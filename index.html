@@ -267,6 +267,11 @@ h1, h2 {
   transition: all 0.3s;
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
+.btn-gold.audio-download {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
 .btn-gold:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
@@ -866,7 +871,7 @@ footer {
       <audio controls preload="none" style="width:100%;margin:1rem 0">
         <source src="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado.mp3" type="audio/mpeg">
       </audio>
-      <a href="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado.mp3" download="Exorcismo-Pactado.mp3" class="btn-gold" style="padding:0.6rem 1.5rem;font-size:0.9rem;margin-top:0.5rem;display:inline-block">⬇ Descargar</a>
+      <button type="button" class="btn-gold audio-download" data-src="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado.mp3" data-filename="Exorcismo-Pactado.mp3" style="padding:0.6rem 1.5rem;font-size:0.9rem;margin-top:0.5rem;display:inline-block">⬇ Descargar</button>
     </div>
 
     <div class="card">
@@ -875,7 +880,7 @@ footer {
       <audio controls preload="none" style="width:100%;margin:1rem 0">
         <source src="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado%20oracion.mp3" type="audio/mpeg">
       </audio>
-      <a href="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado%20oracion.mp3" download="Exorcismo-Pactado-Oracion.mp3" class="btn-gold" style="padding:0.6rem 1.5rem;font-size:0.9rem;margin-top:0.5rem;display:inline-block">⬇ Descargar</a>
+      <button type="button" class="btn-gold audio-download" data-src="https://pub-a035ec16b68a4d21ace97569d13a026a.r2.dev/exorcismo%20pactado%20oracion.mp3" data-filename="Exorcismo-Pactado-Oracion.mp3" style="padding:0.6rem 1.5rem;font-size:0.9rem;margin-top:0.5rem;display:inline-block">⬇ Descargar</button>
     </div>
   </div>
   </section>
@@ -1129,6 +1134,52 @@ function playBellChime() {
 }
 
 document.getElementById('audio-toggle').addEventListener('click', toggleAudio);
+
+async function downloadAudioFile(url, filename) {
+  const response = await fetch(url, { mode: 'cors' });
+  if (!response.ok) {
+    throw new Error('HTTP ' + response.status);
+  }
+
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
+
+  try {
+    const link = document.createElement('a');
+    link.href = objectUrl;
+    link.download = filename;
+    link.rel = 'noopener';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } finally {
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+  }
+}
+
+document.querySelectorAll('.audio-download').forEach(button => {
+  button.addEventListener('click', async () => {
+    const url = button.dataset.src;
+    const filename = button.dataset.filename || 'audio.mp3';
+
+    try {
+      button.disabled = true;
+      const previousLabel = button.innerText;
+      button.innerText = 'Descargando...';
+      await downloadAudioFile(url, filename);
+      button.innerText = 'Descargado';
+      window.setTimeout(() => {
+        button.innerText = previousLabel;
+      }, 1500);
+    } catch (error) {
+      console.warn('No se pudo descargar el audio.', error);
+      alert('No se pudo descargar el audio. Intenta de nuevo.');
+      button.innerText = '⬇ Descargar';
+    } finally {
+      button.disabled = false;
+    }
+  });
+});
 
 // --- 3. Pestañas Interactivas de Colores ---
 document.querySelectorAll('.color-tab').forEach(tab => {
