@@ -3,224 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tu Altar Digital - $499 MXN | MIGUE F.</title>
-<meta name="description" content="Crea tu altar digital para la Santa Muerte. Página personalizada por $499 MXN.">
-<link rel="canonical" href="https://migue-f.pages.dev/altar.html">
+<title>Altar Digital Personalizado | MIGUE F.</title>
+<meta name="description" content="Crea tu altar digital de la Santa Muerte. Desde $799 MXN. Diseño negro y dorado, oraciones en audio, dominio propio. Tu fe merece su propio espacio.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://miguelff.customer625a.workers.dev/altar.html">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root{--gold:#d4af37;--red:#8b0000;--bg:#0a0a0a;--text:#e5e5e5}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.7;overflow-x:hidden}
-h1,h2{font-family:'Playfair Display',serif;color:var(--gold)}
-.hero{padding:6rem 1.5rem 3rem;text-align:center;background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.6)),url('images/hero.jpg') center/cover;text-shadow:0 2px 5px rgba(0,0,0,0.8)}
+h1,h2,h3{font-family:'Playfair Display',serif;color:var(--gold)}
+.hero{padding:6rem 1.5rem 4rem;text-align:center;background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.75)),url('images/hero.jpg') center/cover;text-shadow:0 2px 5px rgba(0,0,0,0.8)}
 .hero h1{font-size:clamp(2.5rem,6vw,4rem);text-shadow:0 0 30px rgba(212,175,55,0.6)}
-.container{max-width:900px;margin:0 auto;padding:3rem 1.5rem}
-.highlight{background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(139,0,0,0.15));border:1px solid var(--gold);padding:2.5rem;border-radius:12px;margin:2rem 0;text-align:center}
-.price-box{background:#111;border:2px solid var(--gold);padding:3rem 2rem;border-radius:16px;text-align:center;margin:3rem 0;box-shadow:0 0 40px rgba(212,175,55,0.2)}
-.price{font-size:3.5rem;color:var(--gold);font-weight:700;font-family:'Playfair Display',serif}
+.hero p{margin-top:1rem;font-size:1.2rem;opacity:0.9;max-width:600px;margin-left:auto;margin-right:auto}
+.container{max-width:960px;margin:0 auto;padding:3rem 1.5rem}
+.highlight{background:linear-gradient(135deg,rgba(212,175,55,0.12),rgba(139,0,0,0.12));border:1px solid var(--gold);padding:2.5rem;border-radius:12px;margin:2rem 0;text-align:center}
+
+/* Tiers de Precios */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:3rem 0}
+.tier{background:#0f0f0f;border:1px solid rgba(212,175,55,0.2);border-radius:16px;padding:2.5rem 2rem;text-align:center;display:flex;flex-direction:column;transition:all 0.3s ease;position:relative;overflow:hidden}
+.tier::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:rgba(212,175,55,0.3);transition:background 0.3s}
+.tier:hover{border-color:rgba(212,175,55,0.5);box-shadow:0 0 30px rgba(212,175,55,0.1);transform:translateY(-4px)}
+.tier.featured{border-color:var(--gold);box-shadow:0 0 40px rgba(212,175,55,0.2)}
+.tier.featured::before{background:var(--gold)}
+.tier-badge{position:absolute;top:1rem;right:1rem;background:var(--gold);color:#000;font-size:0.7rem;font-weight:700;padding:0.25rem 0.6rem;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
+.tier-name{font-size:1.3rem;color:var(--gold);margin-bottom:0.5rem}
+.tier-price{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;line-height:1;margin:1rem 0 0.3rem}
+.tier-price span{font-size:1.2rem;opacity:0.7}
+.tier-sub{font-size:0.85rem;opacity:0.5;margin-bottom:1.5rem}
+.tier-features{list-style:none;text-align:left;margin-bottom:2rem;flex:1}
+.tier-features li{padding:0.5rem 0;padding-left:1.5rem;position:relative;font-size:0.92rem;border-bottom:1px solid rgba(255,255,255,0.04)}
+.tier-features li:before{content:"✦";color:var(--gold);position:absolute;left:0;font-size:0.7rem;top:0.65rem}
+.tier-features li:last-child{border-bottom:none}
+.btn-tier{display:block;background:transparent;border:1.5px solid var(--gold);color:var(--gold);padding:0.9rem 1.5rem;border-radius:50px;font-weight:600;text-decoration:none;transition:all 0.3s;font-size:0.95rem;cursor:pointer;font-family:Inter,sans-serif}
+.btn-tier:hover,.tier.featured .btn-tier{background:var(--gold);color:#000}
+.tier.featured .btn-tier{background:var(--gold);color:#000;box-shadow:0 0 20px rgba(212,175,55,0.3)}
+
+/* Separador de sección */
+.section-divider{text-align:center;margin:4rem 0 2rem;position:relative}
+.section-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(212,175,55,0.15)}
+.section-divider span{position:relative;background:var(--bg);padding:0 1.5rem;color:var(--gold);font-family:'Playfair Display',serif;font-size:1.5rem}
+
+/* Por qué */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin:2rem 0}
+.why-card{background:rgba(255,255,255,0.02);border:1px solid rgba(212,175,55,0.1);border-radius:12px;padding:2rem}
+.why-card h3{font-size:1.1rem;margin-bottom:0.8rem}
+.why-card p{font-size:0.95rem;opacity:0.8;line-height:1.6}
+.why-icon{font-size:2rem;margin-bottom:1rem}
+
+/* FAQs */
+.faq-section{margin:4rem 0 2rem}
+.faq-section h2{text-align:center;margin-bottom:2rem}
+details{background:rgba(255,255,255,0.02);border:1px solid rgba(212,175,55,0.2);border-radius:8px;margin-bottom:1rem;padding:0.5rem 1rem;transition:all 0.3s ease}
+details[open]{background:rgba(212,175,55,0.04);border-color:var(--gold);box-shadow:0 0 15px rgba(212,175,55,0.1)}
+summary{font-weight:600;color:var(--gold);padding:1rem 0.5rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;outline:none;font-size:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"✦";font-size:0.9rem;transition:transform 0.3s ease}
+details[open] summary::after{transform:rotate(45deg);color:#fff}
+.faq-content{padding:0.5rem 0.5rem 1.5rem;line-height:1.6;opacity:0.9;border-top:1px solid rgba(212,175,55,0.1);margin-top:0.5rem}
+
+/* CTA Final */
+.cta-final{background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(139,0,0,0.08));border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:3rem 2rem;text-align:center;margin:3rem 0}
 .btn-messenger{display:inline-block;margin-top:1.5rem;background:#0084FF;color:#fff;padding:1.2rem 3rem;font-weight:700;text-decoration:none;border-radius:50px;font-size:1.1rem;transition:all 0.3s}
 .btn-messenger:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,132,255,0.4)}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
-.gallery img{width:100%;border-radius:8px}
-ul{list-style:none;padding-left:0}
-ul li{padding:0.5rem 0;padding-left:1.5rem;position:relative}
-ul li:before{content:"✦";color:var(--gold);position:absolute;left:0}
-.back{display:inline-block;margin-top:3rem;color:var(--gold);text-decoration:none;opacity:0.8}
+.back{display:inline-block;margin-top:3rem;color:var(--gold);text-decoration:none;opacity:0.7}
 .back:hover{opacity:1}
 
-/* Sección de FAQs tipo Acordeón */
-.faq-section {
-  margin: 4rem 0 2rem;
-}
-.faq-section h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-details {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
-}
-details[open] {
-  background: rgba(212, 175, 55, 0.04);
-  border-color: var(--gold);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-}
-summary {
-  font-weight: 600;
-  color: var(--gold);
-  padding: 1rem 0.5rem;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  outline: none;
-  font-size: 1.1rem;
-}
-summary::-webkit-details-marker {
-  display: none;
-}
-summary::after {
-  content: "✦";
-  font-size: 0.9rem;
-  transition: transform 0.3s ease;
-}
-details[open] summary::after {
-  transform: rotate(45deg);
-  color: #fff;
-}
-.faq-content {
-  padding: 0.5rem 0.5rem 1.5rem;
-  line-height: 1.6;
-  opacity: 0.95;
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
-  margin-top: 0.5rem;
-}
-.faq-content p {
-  margin-bottom: 0.8rem;
-}
-.faq-content p:last-child {
-  margin-bottom: 0;
-}
-
-/* Animaciones al hacer Scroll */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.scroll-reveal.reveal-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Scroll reveal */
+.scroll-reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.scroll-reveal.reveal-visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:768px){
-  .gallery{grid-template-columns:1fr}
-  summary { font-size: 1rem; }
+  .tiers{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .tier.featured{order:-1}
 }
 </style>
 </head>
 <body>
+
 <section class="hero">
-  <h1>Tu Altar Digital</h1>
-  <p style="margin-top:1rem;font-size:1.2rem;opacity:0.9">La Santa Muerte también quiere su espacio en internet</p>
+  <h1>Altar Digital</h1>
+  <p>Tu fe merece su propio espacio en internet. Permanente, tuyo, sin algoritmos que te censuren.</p>
 </section>
 
 <div class="container">
+
   <div class="highlight scroll-reveal">
-    <p style="font-size:1.3rem;font-style:italic">"Después de todo lo que la Flaquita nos ha dado, $499 no es nada. Es tener tu fe con orgullo, en tu propia casa digital, no en una red social que mañana te puede cerrar."</p>
-    <p style="margin-top:1rem">— MIGUE F.</p>
+    <p style="font-size:1.2rem;font-style:italic">"Después de todo lo que la Flaquita nos ha dado, lo mínimo es darle un espacio digno donde nadie te pueda quitar."</p>
+    <p style="margin-top:1rem;opacity:0.7">— MIGUE F.</p>
   </div>
 
-  <section class="scroll-reveal" style="margin-bottom:3rem">
-    <h2>¿Por qué un devoto de verdad necesita su altar online?</h2>
-    <p style="margin-top:1rem">Facebook te limita. Instagram te shadowbanea. TikTok te tumba videos. Pero tu fe no puede depender del algoritmo.</p>
-    <p style="margin-top:1rem">Un altar digital es tu casa. Ahí están tus oraciones, tus fotos, tus redes, tu historia. Para siempre. Es la diferencia entre ser un devoto de redes y ser un devoto con legado.</p>
-  </section>
+  <div class="section-divider scroll-reveal"><span>Elige tu Altar</span></div>
 
-  <section class="scroll-reveal" style="margin-bottom:3rem">
-    <h2 style="margin-top:3rem">¿Qué incluye por $499 MXN?</h2>
-    <ul style="margin-top:1rem">
-      <li>Página personalizada con tu nombre y tu fe</li>
-      <li>Diseño elegante negro y dorado (como el mío)</li>
-      <li>Galería para tus imágenes de la Santa</li>
-      <li>Tus 5 redes sociales conectadas</li>
-      <li>Sección de oraciones y testimonios</li>
-      <li>Listo en 24 horas</li>
-      <li>Alojamiento gratis por 1 año</li>
-      <li>Tu link personalizado: tunombre.netlify.app</li>
-    </ul>
-  </section>
+  <!-- TIERS DE PRECIO -->
+  <div class="tiers scroll-reveal">
 
-  <div class="gallery scroll-reveal">
-    <img src="images/santa-dorada.png" alt="Ejemplo 1">
-    <img src="images/santa-roja.png" alt="Ejemplo 2">
-    <img src="images/santa-blanca.png" alt="Ejemplo 3">
+    <div class="tier">
+      <div class="tier-name">Altar Básico</div>
+      <div class="tier-price">$799 <span>MXN</span></div>
+      <div class="tier-sub">Pago único · Sin mensualidades</div>
+      <ul class="tier-features">
+        <li>Página personalizada con tu nombre y fe</li>
+        <li>Diseño negro y dorado</li>
+        <li>Galería de imágenes de la Santa</li>
+        <li>5 redes sociales conectadas</li>
+        <li>Sección de oraciones</li>
+        <li>Alojamiento 1 año incluido</li>
+        <li>Tu link: tunombre.pages.dev</li>
+        <li>Entrega en 24–48 hrs</li>
+      </ul>
+      <a href="https://m.me/61585194299969" class="btn-tier" target="_blank" rel="noopener noreferrer">Quiero el Básico</a>
+    </div>
+
+    <div class="tier featured">
+      <div class="tier-badge">Más popular</div>
+      <div class="tier-name">Altar Premium</div>
+      <div class="tier-price">$1,499 <span>MXN</span></div>
+      <div class="tier-sub">Pago único · Sin mensualidades</div>
+      <ul class="tier-features">
+        <li>Todo lo del Altar Básico</li>
+        <li>Sección de audios y oraciones descargables</li>
+        <li>Canciones de devoción en MP3</li>
+        <li>Botón de descarga para cada audio</li>
+        <li>Contador de visitas y ofrendas</li>
+        <li>Partículas y animaciones premium</li>
+        <li>Veladoras virtuales interactivas</li>
+        <li>Entrega en 48–72 hrs</li>
+      </ul>
+      <a href="https://m.me/61585194299969" class="btn-tier" target="_blank" rel="noopener noreferrer">Quiero el Premium</a>
+    </div>
+
+    <div class="tier">
+      <div class="tier-name">Altar Vivo</div>
+      <div class="tier-price">$2,499 <span>MXN</span></div>
+      <div class="tier-sub">Pago único · Sin mensualidades</div>
+      <ul class="tier-features">
+        <li>Todo lo del Altar Premium</li>
+        <li>Dominio propio (.com o .mx) por 1 año</li>
+        <li>tunombre.com en vez de .pages.dev</li>
+        <li>Panel simple para agregar oraciones</li>
+        <li>Pixel de seguimiento listo</li>
+        <li>SEO completo para Google</li>
+        <li>Soporte por WhatsApp 30 días</li>
+        <li>Entrega en 72 hrs</li>
+      </ul>
+      <a href="https://m.me/61585194299969" class="btn-tier" target="_blank" rel="noopener noreferrer">Quiero el Vivo</a>
+    </div>
+
   </div>
 
-  <div class="price-box scroll-reveal">
-    <h2>Un solo pago</h2>
-    <div class="price">$499 <span style="font-size:1.5rem">MXN</span></div>
-    <p style="margin:1rem 0;opacity:0.8">Sin mensualidades. Tuyo para siempre.</p>
-    <a href="https://m.me/61585194299969" class="btn-messenger" target="_blank" rel="noopener noreferrer">Contáctame vía Messenger</a>
-    <p style="margin-top:1rem;font-size:0.9rem;opacity:0.6">Respondo personalmente. Solo 5 lugares por semana.</p>
+  <!-- POR QUÉ -->
+  <div class="section-divider scroll-reveal"><span>¿Por qué?</span></div>
+
+  <div class="why-grid scroll-reveal">
+    <div class="why-card">
+      <div class="why-icon">️</div>
+      <h3>Las redes te pueden cerrar</h3>
+      <p>Facebook shadowbanea contenido de Santa Muerte. TikTok elimina videos. Instagram cierra cuentas. Tu altar digital no lo borra nadie.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"></div>
+      <h3>Tu fe merece legado</h3>
+      <p>Un link tuyo, con tu nombre, tus oraciones y tu historia. No un perfil entre millones. Un espacio propio para honrar a la Flaquita.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"></div>
+      <h3>Está en internet para siempre</h3>
+      <p>Tu comunidad te puede encontrar en Google. Tus seguidores llegan directo a tus oraciones sin depender del alcance orgánico.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"></div>
+      <h3>Canciones y oraciones en audio</h3>
+      <p>En el plan Premium tus devotos pueden escuchar y descargar tus oraciones y canciones directamente desde tu altar.</p>
+    </div>
   </div>
 
-  <!-- Nueva Sección de FAQs -->
+  <!-- FAQs -->
   <section class="faq-section scroll-reveal">
     <h2>Preguntas Frecuentes</h2>
-    
+
     <details>
-      <summary>¿Qué es un Altar Digital y por qué es mejor que las redes sociales?</summary>
+      <summary>¿Qué diferencia hay entre los tres altares?</summary>
       <div class="faq-content">
-        <p>Un Altar Digital es una página web propia y permanente dedicada a tu devoción. A diferencia de Facebook, Instagram o TikTok, que constantemente cambian algoritmos, eliminan cuentas o limitan contenido sobre la Santa Muerte, tu página web es 100% tuya. Nadie te puede censurar ni borrar tus oraciones.</p>
+        <p>El Básico es tu presencia digital esencial: página personalizada, galería y redes. El Premium agrega todo lo interactivo: audios descargables, canciones, veladoras virtuales y contador de ofrendas. El Vivo es el paquete completo con dominio propio (.com o .mx) y soporte directo.</p>
       </div>
     </details>
 
     <details>
-      <summary>¿Qué necesito proporcionar para crear mi Altar?</summary>
+      <summary>¿Qué necesito enviar para empezar?</summary>
       <div class="faq-content">
-        <p>Solo necesitas enviarme tu nombre (o cómo quieres que se llame tu altar), las fotos de tus imágenes de la Santa Muerte o de tu altar físico, los enlaces a tus redes sociales y tus oraciones o testimonios favoritos de fe.</p>
+        <p>Tu nombre o el nombre del altar, fotos de tus imágenes de la Santa o de tu altar físico, enlaces a tus redes sociales y tus oraciones. Si tienes audios o canciones que quieras incluir, también los puedes mandar.</p>
       </div>
     </details>
 
     <details>
       <summary>¿De verdad el alojamiento es gratis por un año?</summary>
       <div class="faq-content">
-        <p>Sí, totalmente gratis por los primeros 12 meses. Subiré tu altar a plataformas de servidores profesionales de alta velocidad. Después del año, si deseas mantenerlo en línea, el costo de renovación es sumamente bajo (aproximadamente $150 MXN anuales) solo para cubrir los costos de servidor.</p>
+        <p>Sí. El primer año está incluido en los tres planes. Después, la renovación es aproximadamente $150–200 MXN anuales solo para cubrir el servidor. Si tienes dominio propio (plan Vivo), el dominio se renueva aparte a precio de mercado (~$200–300 MXN anuales).</p>
       </div>
     </details>
 
     <details>
-      <summary>¿Cuánto tiempo tarda en estar listo?</summary>
+      <summary>¿Cuánto tarda en estar listo?</summary>
       <div class="faq-content">
-        <p>Una vez que me envíes toda tu información y fotos, tu altar digital personalizado estará programado y completamente en vivo en internet en un plazo máximo de 24 a 48 horas hábiles.</p>
+        <p>El Básico en 24–48 hrs. El Premium en 48–72 hrs. El Vivo en 72 hrs. Los tiempos son desde que me envías toda la información completa.</p>
       </div>
     </details>
 
     <details>
-      <summary>¿Cómo se realiza el pago?</summary>
+      <summary>¿Cómo pago?</summary>
       <div class="faq-content">
-        <p>Haciendo clic en el botón de Messenger para escribirme. Coordinaremos el método de pago directo y seguro que prefieras (transferencia SPEI, depósito en OXXO o PayPal) y comenzaremos de inmediato con tu altar.</p>
+        <p>Por Messenger coordinamos todo. Acepto transferencia SPEI, depósito en OXXO o PayPal. Se paga antes de empezar. No hay cobros ocultos ni mensualidades.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Puedo subir mis propias oraciones y canciones?</summary>
+      <div class="faq-content">
+        <p>Sí. En el plan Premium y Vivo incluyo sección de audios. Me mandas tus archivos MP3 y yo los subo al servidor. Si en el futuro quieres agregar más, me contactas y lo hacemos rápido.</p>
       </div>
     </details>
   </section>
 
-  <section class="scroll-reveal" style="margin-top:3rem">
-    <h2>Esto no es para todos</h2>
-    <p style="margin-top:1rem">Es para el devoto que está orgulloso. Que no esconde su fe. Que entiende que si la Santa te dio abundancia, lo mínimo es darle un espacio digno en internet.</p>
-    <p style="margin-top:1rem">$499 es lo que gastas en veladoras en un mes. Pero esto queda para siempre.</p>
-  </section>
+  <!-- CTA FINAL -->
+  <div class="cta-final scroll-reveal">
+    <h2>¿Listo para tu Altar Digital?</h2>
+    <p style="margin-top:1rem;opacity:0.85;max-width:500px;margin-left:auto;margin-right:auto">Escríbeme por Messenger. Te respondo personalmente y empezamos de inmediato. Solo 5 lugares por semana.</p>
+    <a href="https://m.me/61585194299969" class="btn-messenger" target="_blank" rel="noopener noreferrer"> Escribirme por Messenger</a>
+    <p style="margin-top:1.5rem;font-size:0.85rem;opacity:0.5">SPEI · OXXO · PayPal</p>
+  </div>
 
-  <a href="index.html" class="back">← Volver a mi altar</a>
+  <a href="index.html" class="back">← Volver al altar</a>
 </div>
 
-<footer style="text-align:center;padding:2rem;opacity:0.6;border-top:1px solid rgba(212,175,55,0.2);margin-top:3rem">MIGUE F. - Altar Digital 2026</footer>
+<footer style="text-align:center;padding:2rem;opacity:0.5;border-top:1px solid rgba(212,175,55,0.15);margin-top:3rem;font-size:0.85rem">MIGUE F. · Altares Digitales 2026</footer>
 
 <script>
-// Animaciones al hacer Scroll
 function initScrollReveal() {
-  const revealElements = document.querySelectorAll('.scroll-reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('reveal-visible');
     });
-  }, {
-    threshold: 0.05,
-    rootMargin: '0px 0px -40px 0px'
-  });
-  
-  revealElements.forEach(el => observer.observe(el));
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  initScrollReveal();
-});
+window.addEventListener('DOMContentLoaded', initScrollReveal);
 </script>
 </body>
 </html>
