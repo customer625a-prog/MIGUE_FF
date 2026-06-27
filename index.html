@@ -1135,49 +1135,18 @@ function playBellChime() {
 
 document.getElementById('audio-toggle').addEventListener('click', toggleAudio);
 
-async function downloadAudioFile(url, filename) {
-  const response = await fetch(url, { mode: 'cors' });
-  if (!response.ok) {
-    throw new Error('HTTP ' + response.status);
-  }
-
-  const blob = await response.blob();
-  const objectUrl = URL.createObjectURL(blob);
-
-  try {
+document.querySelectorAll('.audio-download').forEach(button => {
+  button.addEventListener('click', () => {
+    const url = button.dataset.src;
+    const filename = button.dataset.filename || 'audio.mp3';
     const link = document.createElement('a');
-    link.href = objectUrl;
+    link.href = url;
     link.download = filename;
+    link.target = '_blank';
     link.rel = 'noopener';
     document.body.appendChild(link);
     link.click();
     link.remove();
-  } finally {
-    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-  }
-}
-
-document.querySelectorAll('.audio-download').forEach(button => {
-  button.addEventListener('click', async () => {
-    const url = button.dataset.src;
-    const filename = button.dataset.filename || 'audio.mp3';
-
-    try {
-      button.disabled = true;
-      const previousLabel = button.innerText;
-      button.innerText = 'Descargando...';
-      await downloadAudioFile(url, filename);
-      button.innerText = 'Descargado';
-      window.setTimeout(() => {
-        button.innerText = previousLabel;
-      }, 1500);
-    } catch (error) {
-      console.warn('No se pudo descargar el audio.', error);
-      alert('No se pudo descargar el audio. Intenta de nuevo.');
-      button.innerText = '⬇ Descargar';
-    } finally {
-      button.disabled = false;
-    }
   });
 });
 
